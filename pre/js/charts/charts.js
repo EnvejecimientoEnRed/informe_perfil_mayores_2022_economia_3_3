@@ -27,7 +27,7 @@ export function initChart(iframe) {
         console.log(data);
 
         //Declaramos fuera las variables genéricas
-        let margin = {top: 20, right: 20, bottom: 20, left: 70},
+        let margin = {top: 20, right: 20, bottom: 20, left: 35},
             width = document.getElementById('chart').clientWidth - margin.left - margin.right,
             height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
 
@@ -45,8 +45,7 @@ export function initChart(iframe) {
             .range([0, width])
             .padding([0.2]);
 
-        let xAxis = d3.axisBottom(x)
-            .tickValues(x.domain().filter(function(d,i){ return !(i%10)}));
+        let xAxis = d3.axisBottom(x);
         
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -80,10 +79,11 @@ export function initChart(iframe) {
                 .data(function(d) { return d; })
                 .enter()
                 .append("rect")
-                    .attr("x", function(d) { return x(d.data.periodo); })
+                    .attr('class','prueba')
+                    .attr("x", function(d) { return x(d.data.periodo) + x.bandwidth() / 4; })
                     .attr("y", function(d) { return y(0); })
                     .attr("height", function(d) { return 0; })
-                    .attr("width",x.bandwidth())
+                    .attr("width",x.bandwidth() / 2)
                     .transition()
                     .duration(2500)
                     .attr("y", function(d) { return y(d[1]); })
@@ -91,9 +91,16 @@ export function initChart(iframe) {
         }
 
         function animateChart() {
-
+            svg.selectAll('.prueba')
+                .attr("x", function(d) { return x(d.data.periodo); })
+                .attr("y", function(d) { return y(0); })
+                .attr("height", function(d) { return 0; })
+                .attr("width",x.bandwidth())
+                .transition()
+                .duration(2500)
+                .attr("y", function(d) { return y(d[1]); })
+                .attr("height", function(d) { return y(d[0]) - y(d[1]); });
         }
-
 
         //////
         ///// Resto - Chart
@@ -108,7 +115,6 @@ export function initChart(iframe) {
         //////
         ///// Resto
         //////
-
 
         //Iframe
         setFixedIframeUrl('informe_perfil_mayores_2022_economia_3_4','evolucion_poblacion_ocupada');
