@@ -123,13 +123,16 @@ export function initChart(iframe) {
         setRRSSLinks('evolucion_poblacion_ocupada');
 
         //Captura de pantalla de la visualización
-        setChartCanvas();
-        setCustomCanvas();
+        //setChartCanvas();
+        setTimeout(() => {
+            setCustomCanvas();
+        }, 6000);        
 
         let pngDownload = document.getElementById('pngImage');
 
         pngDownload.addEventListener('click', function(){
-            setChartCanvasImage('evolucion_poblacion_ocupada');
+            //setChartCanvasImage('evolucion_poblacion_ocupada');
+            setChartCustomCanvasImage('evolucion_poblacion_ocupada');
         });
 
         //Altura del frame
