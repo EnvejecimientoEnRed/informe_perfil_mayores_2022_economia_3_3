@@ -26,12 +26,72 @@ export function initChart(iframe) {
 
         console.log(data);
 
-        function init() {
+        //Declaramos fuera las variables genéricas
+        let margin = {top: 20, right: 20, bottom: 20, left: 70},
+            width = document.getElementById('chart').clientWidth - margin.left - margin.right,
+            height = document.getElementById('chart').clientHeight - margin.top - margin.bottom;
 
+        let svg = d3.select("#chart")
+            .append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
+        let gruposEdad = ['16-24','25-34','35-44','45-54','55-64','65+'];
+
+        let x = d3.scaleBand()
+            .domain(d3.map(data, function(d){ return d.periodo; }).keys())
+            .range([0, width])
+            .padding([0.2]);
+
+        let xAxis = d3.axisBottom(x)
+            .tickValues(x.domain().filter(function(d,i){ return !(i%10)}));
+        
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+        
+        let y = d3.scaleLinear()
+            .domain([0, 100])
+            .range([height, 0]);
+
+        svg.append("g")
+            .attr("class", "yaxis")
+            .call(d3.axisLeft(y));
+
+        let color = d3.scaleOrdinal()
+            .domain(gruposEdad)
+            .range([COLOR_PRIMARY_1, COLOR_COMP_2, COLOR_COMP_1, COLOR_GREY_1, COLOR_OTHER_1, COLOR_OTHER_2]);
+
+        let stackedDataEdad = d3.stack()
+            .keys(gruposEdad)
+            (data);
+
+        function init() {
+            svg.append("g")
+                .attr('class','chart-g')
+                .selectAll("g")
+                .data(stackedDataEdad)
+                .enter()
+                .append("g")
+                .attr("fill", function(d) { return color(d.key); })
+                .selectAll("rect")
+                .data(function(d) { return d; })
+                .enter()
+                .append("rect")
+                    .attr("x", function(d) { return x(d.data.periodo); })
+                    .attr("y", function(d) { return y(0); })
+                    .attr("height", function(d) { return 0; })
+                    .attr("width",x.bandwidth())
+                    .transition()
+                    .duration(2500)
+                    .attr("y", function(d) { return y(d[1]); })
+                    .attr("height", function(d) { return y(d[0]) - y(d[1]); });
         }
 
         function animateChart() {
-            
+
         }
 
 
