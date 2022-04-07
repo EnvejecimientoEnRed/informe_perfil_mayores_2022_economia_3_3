@@ -21,10 +21,8 @@ COLOR_OTHER_2 = '#731854';
 
 export function initChart(iframe) {
     //Lectura de datos
-    d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_economia_3_4/main/data/distribucion_poblacion_ocupada_1970_2020_v2.csv', function(error,data) {
+    d3.csv('https://raw.githubusercontent.com/CarlosMunozDiazCSIC/informe_perfil_mayores_2022_economia_3_3/main/data/distribucion_poblacion_ocupada_1970_2020_v2.csv', function(error,data) {
         if (error) throw error;
-
-        console.log(data);
 
         //Declaramos fuera las variables genéricas
         let margin = {top: 20, right: 20, bottom: 20, left: 35},
@@ -95,7 +93,7 @@ export function initChart(iframe) {
                 .attr("x", function(d) { return x(d.data.periodo); })
                 .attr("y", function(d) { return y(0); })
                 .attr("height", function(d) { return 0; })
-                .attr("width",x.bandwidth())
+                .attr("width", x.bandwidth())
                 .transition()
                 .duration(2500)
                 .attr("y", function(d) { return y(d[1]); })
@@ -117,7 +115,7 @@ export function initChart(iframe) {
         //////
 
         //Iframe
-        setFixedIframeUrl('informe_perfil_mayores_2022_economia_3_4','evolucion_poblacion_ocupada');
+        setFixedIframeUrl('informe_perfil_mayores_2022_economia_3_3','evolucion_poblacion_ocupada');
 
         //Redes sociales > Antes tenemos que indicar cuál sería el texto a enviar
         setRRSSLinks('evolucion_poblacion_ocupada');
