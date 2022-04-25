@@ -18,16 +18,16 @@
             <section class="content b-chart active" id="chartBlock">
                 <div class="b-title">
                     <h1 class="title">Figura 3.3. Evolución de la distribución porcentual de la población ocupada por grupo de edad en España entre 1970 y 2020</h1>
-                    <h2 class="subtitle">Gráfico 26/2022. Datos en porcentajes (%)</h2>
+                    <h2 class="subtitle">Gráfico 26/2022</h2>
                 </div>
                 <div class="chart__logics">
                     <div class="chart__legend">
                         <span class="chart__legend--item primary_1">16-24 años</span>
-                        <span class="chart__legend--item comp_2">25-34</span>
-                        <span class="chart__legend--item comp_1">35-44</span>
-                        <span class="chart__legend--item grey_1">45-54</span>
-                        <span class="chart__legend--item other_1">55-64</span>
-                        <span class="chart__legend--item other_2">65+</span>
+                        <span class="chart__legend--item anag_prim_1">25-34</span>
+                        <span class="chart__legend--item comp_2">35-44</span>
+                        <span class="chart__legend--item comp_1">45-54</span>
+                        <span class="chart__legend--item anag_comp_1">55-64</span>
+                        <span class="chart__legend--item anag_prim_2">65+</span>
                     </div>
                     <div class="chart__animate" id="replay">
                         <button class="btn btn__animate">
@@ -36,7 +36,11 @@
                         </button>
                     </div>                  
                 </div>
-                <div class="chart__viz" id="chart"></div>
+                <div class="chart__viz">
+                    <p class="text__yaxis">Porcentaje</p>
+                    <div class="chart" id="chart"></div>
+                    <p class="text__xaxis">Años</p>
+                </div>
                 <!-- Pie de gráfico -->
                 <div class="chart__footer">
                     <div class="chart__source">
